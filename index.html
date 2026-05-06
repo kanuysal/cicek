@@ -24,20 +24,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
 
 	<style>
-		/* Rebrand Twitter blue to Instagram colors */
-		.shareIcon[data-network="twitter"], .shareIcon[data-network="instagram"] {
-			background: #f09433; 
-			background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-			background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
-			background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
-		}
-		.shareIcon[data-network="twitter"]:hover, .shareIcon[data-network="instagram"]:hover {
-			opacity: 0.9;
-		}
 		/* Ensure SVG is white and centered */
-		.shareIcon div svg {
-			fill: #fff !important;
+		.shareIcon img {
+			width: 60px;
+			height: 60px;
+			object-fit: contain;
+		}
+		.shareIcon {
+			background: rgba(0, 0, 0, 0.5) !important;
+			width: 80px !important;
+			height: 80px !important;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 15px;
+			cursor: pointer;
+			transition: transform 0.2s ease;
+		}
+		.shareIcon:hover {
+			transform: scale(1.1);
+		}
+		/* Info modal (site share) should be 2x larger */
+		.shareOverlay__site .shareIcon {
+			width: 160px !important;
+			height: 160px !important;
+		}
+		.shareOverlay__site .shareIcon img {
+			width: 120px;
+			height: 120px;
+		}
+		.layoutShareBtns {
+			display: flex;
+			justify-content: center;
+			list-style: none;
+			padding: 0;
+			margin: 20px 0;
 		}
 	</style>
 
@@ -189,11 +211,11 @@
 							<input class="shareSiteURL" value='https://cicek.minalidya.com/TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG'/>
 							<ul class="layoutShareBtns">
 								<li class="js-share-flower-fb shareIcon" data-network="facebook">
-									<div><svg><use xlink:href="#icon-fb-logo" /></svg></div>
+									<img src="fb.png" alt="Facebook" />
 								</li>
 								<li class="js-share-flower-tw shareIcon" data-network="instagram" data-share-copy="Anneler Günü Kutlu Olsun, {{recipient}}!
 Bu #yabançiçeği sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minalidyagelinlik #minalidya">
-									<div><svg><use xlink:href="#icon-instagram-colored" /></svg></div>
+									<img src="instagram.png" alt="Instagram" />
 								</li>	
 							</ul>
 
@@ -220,10 +242,10 @@ Bu #yabançiçeği sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu
 							<p class="layoutParagraph">Bu siteyi paylaşın</p>
 							<ul class="layoutShareBtns">
 								<li class="js-share-flower-fb shareIcon" data-network="facebook">
-									<div><svg><use xlink:href="#icon-fb-logo" /></svg></div>
+									<img src="fb.png" alt="Facebook" />
 								</li>
 								<li class="js-share-flower-tw shareIcon" data-network="instagram">
-									<div><svg><use xlink:href="#icon-instagram-logo" /></svg></div>
+									<img src="instagram.png" alt="Instagram" />
 								</li>	
 							</ul>
 							<button class="js-share-close closeButton"><svg><use xlink:href="#icon-close" /></svg></button>

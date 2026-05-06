@@ -5008,6 +5008,53 @@ function Stalk(e, t) {
           e = e.replace(t, "");
         return ((e = e.replace(/\s+/g, " ").trim()), e);
       },
+      saveFlowerToKV: function (callback) {
+        var self = this;
+        var sender = this.get("sender_name");
+        var recipient = this.get("recipient_name");
+        var dataStr = this.get("url_params");
+
+        if (!sender || !recipient) {
+          if (callback) callback();
+          return;
+        }
+
+        // If we are on localhost, the API might not be available. 
+        // We'll still allow sharing using the legacy format as a fallback.
+        var apiTimeout = setTimeout(function() {
+           console.warn("KV Save timeout - using legacy share URL");
+           if (callback) callback();
+           callback = null;
+        }, 2000);
+
+        fetch("/api/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sender: sender,
+            recipient: recipient,
+            data: dataStr
+          })
+        })
+          .then(function(res) { 
+            if (!res.ok) throw new Error("Status " + res.status);
+            return res.json(); 
+          })
+          .then(function(json) {
+            clearTimeout(apiTimeout);
+            if (json && json.slug) {
+              var newShareUrl = self.get("base_url") + json.slug;
+              self.set("share_url", newShareUrl);
+              self.set("clean_slug", json.slug);
+            }
+            if (callback) callback();
+          })
+          .catch(function(err) {
+            clearTimeout(apiTimeout);
+            console.error("KV Save error:", err);
+            if (callback) callback();
+          });
+      },
       setByUrlParams: function () {
         var e = window.location.pathname.substr(1);
         if (!e) {
@@ -5017,6 +5064,36 @@ function Stalk(e, t) {
           this.setNull();
           return;
         }
+
+        // If it looks like a clean slug (contains & or no +)
+        if (e.indexOf("&") !== -1 || (e.indexOf("+") === -1 && e.length > 2)) {
+          var self = this;
+          // For clean slugs, we fetch the actual data from KV via our Worker API
+          fetch("/api/load/" + encodeURIComponent(e))
+            .then(function(res) { return res.json(); })
+            .then(function(json) {
+              if (json && json.data) {
+                // Recursively call setByUrlParams with the data string from KV
+                // or just manually parse it here
+                var dataStr = json.data;
+                var t = dataStr.split("+");
+                if (t.length >= 2) {
+                  var n = null,
+                    r = t[1].indexOf(":") != -1;
+                  if (r) {
+                    var i = t[1].split(":");
+                    ((t[1] = i[0]), (n = i[1]));
+                  }
+                  self.setByNames(t[0], t[1], n);
+                }
+              }
+            })
+            .catch(function(err) {
+              console.error("KV Load error:", err);
+            });
+          return;
+        }
+
         e.indexOf("dev&") !== -1 && (e = e.substr("dev&".length));
         var e = e.split("&")[0];
         ((e = decodeURIComponent(e)),
@@ -11214,23 +11291,30 @@ function Stalk(e, t) {
     function (e, t, n, r) {
       return {
         tweet: function (e, t, n) {
-          ((e = e), (n = n));
-          var r = encodeURIComponent(t);
-          var i;
-          if (window.location.href.indexOf("instagram") !== -1 || true) {
-            // Instagram sharing on web is limited. We'll open the profile and copy link.
-            var tempInput = document.createElement("input");
-            tempInput.value = t;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            alert("Paylaşım linki kopyalandı! Instagram profilimize yönlendiriliyorsunuz. Lütfen bizi etiketlemeyi unutmayın: @minalidyagelinlik #minalidya");
-            i = "https://www.instagram.com/minalidyagelinlik/";
-          } else {
-            i = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(e) + "&url=" + r;
-            if (n && n.length > 0) i += "&related=" + encodeURIComponent(n);
+          var r = t;
+          var i = "https://www.instagram.com/minalidyagelinlik/";
+          
+          if (navigator.share) {
+            navigator.share({
+              title: "Mina Lidya #yabançiçeği",
+              text: e,
+              url: r
+            }).then(function() {
+              window.open(i, "_blank");
+            }).catch(function() {
+              // fallback if share cancelled
+            });
+            return;
           }
+
+          var tempInput = document.createElement("input");
+          tempInput.value = r;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempInput);
+          alert("Çiçek linkiniz kopyalandı! \n\nŞimdi Instagram profilimize yönlendiriliyorsunuz. \nLütfen hikayenizde bizi etiketlemeyi unutmayın: @minalidyagelinlik #minalidya");
+          
           window.open(i, "shareWindow", "width=550,height=420,toolbar=no") || (window.location.href = i);
         },
         fbpost: function (e, t) {
@@ -14532,30 +14616,36 @@ function Stalk(e, t) {
           i.tweet(r, e);
         },
         onShareFlowerFaceBook: function () {
-          var n = s.attributes.share_url,
-            r = t.getIsValentinesDay() ? o.shareflower_fb_v : o.shareflower_fb,
-            u = r({
-              url: n,
-              recipient: s.getPrettyRecipientName(),
-              sender: s.getPrettySenderName(),
+          var self = this;
+          s.saveFlowerToKV(function() {
+            var n = s.attributes.share_url,
+              r = t.getIsValentinesDay() ? o.shareflower_fb_v : o.shareflower_fb,
+              u = r({
+                url: n,
+                recipient: s.getPrettyRecipientName(),
+                sender: s.getPrettySenderName(),
+              });
+            i.fbpost({
+              description: u,
+              link: n,
+              picture: s.attributes.base_url + e.SHARE_IMG,
             });
-          i.fbpost({
-            description: u,
-            link: n,
-            picture: s.attributes.base_url + e.SHARE_IMG,
           });
         },
         onShareFlowerTwitter: function () {
-          var e = s.attributes.share_url,
-            n = t.getIsValentinesDay()
-              ? o.shareflower_twitter_v
-              : o.shareflower_twitter,
-            r = n({
-              url: e,
-              recipient: s.getPrettyRecipientName(),
-              sender: s.getPrettySenderName(),
-            });
-          i.tweet(r, e);
+          var self = this;
+          s.saveFlowerToKV(function() {
+            var e = s.attributes.share_url,
+              n = t.getIsValentinesDay()
+                ? o.shareflower_twitter_v
+                : o.shareflower_twitter,
+              r = n({
+                url: e,
+                recipient: s.getPrettyRecipientName(),
+                sender: s.getPrettySenderName(),
+              });
+            i.tweet(r, e);
+          });
         },
       };
       return (u.init(), u);
