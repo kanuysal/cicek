@@ -329,6 +329,53 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 	</div>
 	<script data-main="js/loader" src="js/libs/require.js?v=1.0"></script>
 <!-- version: 1.0.0c9c3c2 -->
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const shareButtons = document.querySelectorAll('.js-share-flower-tw, .js-share-flower-fb');
+			
+			shareButtons.forEach(button => {
+				button.addEventListener('click', function(e) {
+					// Stop existing events if any
+					e.preventDefault();
+					e.stopPropagation();
+
+					const shareUrlInput = button.closest('div').querySelector('.shareSiteURL');
+					const shareUrl = shareUrlInput ? shareUrlInput.value : window.location.href;
+					
+					const shareData = {
+						title: 'Mina Lidya - Anneler Günü Çiçeği',
+						text: 'Anneler Günün Kutlu Olsun! Bu eşsiz çiçek senin için sevgiyle hazırlandı. @minalidyagelinlik #minalidya',
+						url: shareUrl
+					};
+
+					if (navigator.share) {
+						navigator.share(shareData)
+							.then(() => console.log('Successfully shared'))
+							.catch((error) => console.log('Error sharing:', error));
+					} else {
+						// Fallback: Clipboard
+						if (navigator.clipboard && navigator.clipboard.writeText) {
+							navigator.clipboard.writeText(shareUrl).then(function() {
+								alert('Link başarıyla kopyalandı, istediğiniz yerde paylaşabilirsiniz!');
+							}).catch(function(err) {
+								console.error('Could not copy text: ', err);
+							});
+						} else {
+							// Old school fallback
+							const tempInput = document.createElement("input");
+							tempInput.value = shareUrl;
+							document.body.appendChild(tempInput);
+							tempInput.select();
+							document.execCommand("copy");
+							document.body.removeChild(tempInput);
+							alert('Link başarıyla kopyalandı, istediğiniz yerde paylaşabilirsiniz!');
+						}
+					}
+				}, true); // Capture phase to try and preempt other listeners
+			});
+		});
+	</script>
 </body>
 </html>
 

@@ -14443,7 +14443,7 @@ function Stalk(e, t) {
             o = t.helperMissing,
             u = this.escapeExpression;
           return (
-            "Sayın " +
+            "Merhaba " +
             u(
               ((i =
                 (i = t.recipient || (e != null ? e.recipient : e)) != null
@@ -14505,7 +14505,7 @@ function Stalk(e, t) {
             o = t.helperMissing,
             u = this.escapeExpression;
           return (
-            "Sayın " +
+            "Merhaba " +
             u(
               ((i =
                 (i = t.recipient || (e != null ? e.recipient : e)) != null
@@ -16371,9 +16371,9 @@ function Stalk(e, t) {
             r =
               '<h3 class="headerTitle"><span class="js-recipient" style="color: #F96943;">' +
               t +
-              '</span> kişisine <span class="js-recipient" style="color: #F96943;">' +
+              '</span> İÇİN <span class="js-recipient" style="color: #F96943;">' +
               e +
-              "</span> tarafından</h3>";
+              "</span> GÜZEL BİR ÇİÇEK PAYLAŞTI</h3>";
           this.el.innerHTML = s.attributes.recipientMode === !0 ? r : n;
         },
       });
@@ -40498,7 +40498,7 @@ var _gsScope =
             ? e
               ? ((i = "Anneler Günü Çiçeği"),
                 (o =
-                  "Sayın " +
+                  "Merhaba " +
                   n +
                   ", " +
                   r +
