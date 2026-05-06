@@ -29,18 +29,22 @@
 			width: 60px;
 			height: 60px;
 			object-fit: contain;
+			margin: 0;
+			padding: 0;
+			display: block;
 		}
 		.shareIcon {
 			background: rgba(0, 0, 0, 0.5) !important;
 			width: 80px !important;
 			height: 80px !important;
 			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
 			margin: 0 15px;
 			cursor: pointer;
 			transition: transform 0.2s ease;
+			overflow: hidden;
 		}
 		.shareIcon:hover {
 			transform: scale(1.1);
@@ -214,7 +218,7 @@
 									<img src="fb.png" alt="Facebook" />
 								</li>
 								<li class="js-share-flower-tw shareIcon" data-network="instagram" data-share-copy="Anneler Günü Kutlu Olsun, {{recipient}}!
-Bu #yabançiçeği sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minalidyagelinlik #minalidya">
+Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minalidyagelinlik #minalidya">
 									<img src="instagram.png" alt="Instagram" />
 								</li>	
 							</ul>

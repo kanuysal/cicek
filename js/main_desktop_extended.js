@@ -11296,7 +11296,7 @@ function Stalk(e, t) {
           
           if (navigator.share) {
             navigator.share({
-              title: "Mina Lidya #yabançiçeği",
+              title: "Mina Lidya #minalidya",
               text: e,
               url: r
             }).then(function() {
@@ -14515,7 +14515,7 @@ function Stalk(e, t) {
                 ? i.call(e, { name: "recipient", hash: {}, data: r })
                 : i),
             ) +
-            ",\nBu #yabançiçeği sizin için özel olarak oluşturuldu.\nSevgiler, " +
+            ",\nBu çiçek sizin için özel olarak oluşturuldu.\nSevgiler, " +
             u(
               ((i =
                 (i = t.sender || (e != null ? e.sender : e)) != null ? i : o),
@@ -14546,7 +14546,7 @@ function Stalk(e, t) {
                 ? i.call(e, { name: "recipient", hash: {}, data: r })
                 : i),
             ) +
-            "!\nBu #yabançiçeği sizin için şu kişi tarafından oluşturuldu: " +
+            "!\nBu çiçek sizin için şu kişi tarafından oluşturuldu: " +
             u(
               ((i =
                 (i = t.sender || (e != null ? e.sender : e)) != null ? i : o),
@@ -14562,14 +14562,14 @@ function Stalk(e, t) {
       (this.desktop.sharesite_twitter = e.template({
         compiler: [6, ">= 2.0.0-beta.1"],
         main: function (e, t, n, r) {
-          return "Özel birine benzersiz bir #yabançiçeği göndererek gerçek duygularınızı ifade edin. @minalidyagelinlik #minalidya\n";
+          return "Özel birine benzersiz bir çiçek göndererek gerçek duygularınızı ifade edin. @minalidyagelinlik #minalidya\n";
         },
         useData: !0,
       })),
       (this.desktop.sharesite_twitter_v = e.template({
         compiler: [6, ">= 2.0.0-beta.1"],
         main: function (e, t, n, r) {
-          return "Anneler Günü'nde benzersiz bir #yabançiçeği göndererek gerçek duygularınızı ifade edin. @minalidyagelinlik #minalidya";
+          return "Anneler Günü'nde benzersiz bir çiçek göndererek gerçek duygularınızı ifade edin. @minalidyagelinlik #minalidya";
         },
         useData: !0,
       })),
