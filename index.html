@@ -332,6 +332,17 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
+			// AudioContext resumption fix
+			const resumeAudio = function() {
+				if (typeof createjs !== 'undefined' && createjs.WebAudioPlugin && createjs.WebAudioPlugin.context) {
+					if (createjs.WebAudioPlugin.context.state === 'suspended') {
+						createjs.WebAudioPlugin.context.resume();
+					}
+				}
+			};
+			document.addEventListener('click', resumeAudio, { once: true });
+			document.addEventListener('touchstart', resumeAudio, { once: true });
+
 			const shareButtons = document.querySelectorAll('.js-share-flower-tw, .js-share-flower-fb');
 			
 			shareButtons.forEach(button => {
