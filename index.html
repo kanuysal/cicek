@@ -13,7 +13,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Anneler Günü Çiçeği</title>
+	<title>Anneler Günü Çiçeği - Mina Lidya</title>
 
 	<meta name="description" content="Anneler Günü'ne benzersiz bir çiçek göndererek gerçek duygularınızı ifade edin." />
 	<meta name="keywords" content="" />
@@ -22,6 +22,7 @@
 	<meta property="og:image" content="https://cicek.minalidya.com/facebook_wildflower2.png" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@300;400;600&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 
 	<style>
 		/* Ensure SVG is white and centered */
@@ -64,6 +65,19 @@
 			list-style: none;
 			padding: 0;
 			margin: 20px 0;
+		}
+		.mina-ui {
+			position: fixed; z-index: 999; padding: 30px; opacity: 1; transition: opacity 1.5s ease;
+			font-family: 'Montserrat', sans-serif; text-decoration: none; color: #000; letter-spacing: 0.2em; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center;
+		}
+		.ui-enlarged { font-size: 1.5rem !important; }
+		.ui-top-left { top: 0; left: 0; }
+		.ui-top-left-second { top: 80px !important; }
+		.ui-bottom-left { bottom: 0; left: 0; }
+		@media (max-width: 768px) {
+			.mina-ui { padding: 15px; font-size: 0.65rem; }
+			.ui-enlarged { font-size: 1.2rem !important; }
+			.ui-top-left-second { top: 45px !important; }
 		}
 	</style>
 
@@ -325,6 +339,10 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 			</div>
 		</section>
 
+		<a class="mina-ui ui-top-left ui-enlarged" id="back-to-intro-mina">MİNA LİDYA</a>
+		<a href="https://www.minalidya.com" target="_blank" class="mina-ui ui-top-left ui-top-left-second">MAĞAZA</a>
+		<a href="https://cicek.minalidya.com" target="_blank" class="mina-ui ui-bottom-left ui-enlarged">BİR ÇİÇEK GÖNDERİN</a>
+
 
 	</div>
 	<script data-main="js/loader" src="js/libs/require.js?v=1.0"></script>
@@ -342,6 +360,14 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 			};
 			document.addEventListener('click', resumeAudio, { once: true });
 			document.addEventListener('touchstart', resumeAudio, { once: true });
+
+			// Back to Intro / Brand Click
+			const brandBtn = document.getElementById('back-to-intro-mina');
+			if (brandBtn) {
+				brandBtn.addEventListener('click', function() {
+					window.location.href = window.location.origin + window.location.pathname;
+				});
+			}
 
 			const shareButtons = document.querySelectorAll('.js-share-flower-tw, .js-share-flower-fb');
 			

@@ -40505,7 +40505,7 @@ var _gsScope =
                   " sizin için özel, benzersiz bir çiçek oluşturdu."))
               : ((i = "Sizin için bir çiçek"),
                 (o =
-                  "Sayın " +
+                  "Merhaba " +
                   n +
                   ", " +
                   r +
