@@ -14,6 +14,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 	<title>Anneler Günü Çiçeği - Mina Lidya</title>
+	<link rel="icon" type="image/svg+xml" href="logo.svg">
 
 	<meta name="description" content="Anneler Günü'ne benzersiz bir çiçek göndererek gerçek duygularınızı ifade edin." />
 	<meta name="keywords" content="" />
@@ -90,15 +91,20 @@
 		.ui-top-right { top: 0; right: 0; }
 		.logo-top-right {
 			position: fixed; top: 30px; right: 30px; z-index: 1000; cursor: pointer;
-			background: none; border: none; outline: none; padding: 0; margin: 0;
+			background: #000; border: none; outline: none; padding: 10px; margin: 0;
+			border-radius: 50%; display: flex; align-items: center; justify-content: center;
+			text-decoration: none !important; color: #000 !important; border-bottom: none !important;
+			animation: blackGlow 2.5s infinite;
+			width: 60px; height: 60px;
 		}
+		.logo-top-right svg { color: #fff; fill: #fff; width: 30px; height: 40px; }
 		@media (max-width: 768px) {
 			.mina-ui { padding: 15px; font-size: 0.65rem; }
 			.ui-enlarged { font-size: 1.2rem !important; }
 			.ui-top-left-second { top: 40px !important; }
 			.ui-bottom-left { bottom: 10px !important; }
-			.logo-top-right { top: 15px; right: 15px; }
-			.logo-top-right svg { width: 30px !important; height: 40px !important; }
+			.logo-top-right { top: 15px; right: 15px; width: 44px; height: 44px; padding: 5px; }
+			.logo-top-right svg { width: 22px !important; height: 30px !important; }
 		}
 	</style>
 
