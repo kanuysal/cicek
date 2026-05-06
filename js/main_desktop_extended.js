@@ -14453,7 +14453,7 @@ function Stalk(e, t) {
                 ? i.call(e, { name: "recipient", hash: {}, data: r })
                 : i),
             ) +
-            ",\nBu eşsiz yaban çiçeği sizin için özel olarak oluşturuldu.\nSevgiler, " +
+            ",\nBu eşsiz çiçek sizin için özel olarak oluşturuldu.\nSevgiler, " +
             u(
               ((i =
                 (i = t.sender || (e != null ? e.sender : e)) != null ? i : o),

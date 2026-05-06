@@ -72,12 +72,33 @@
 		}
 		.ui-enlarged { font-size: 1.5rem !important; }
 		.ui-top-left { top: 0; left: 0; }
-		.ui-top-left-second { top: 80px !important; }
-		.ui-bottom-left { bottom: 0; left: 0; }
+		.ui-top-left-second { top: 65px !important; }
+		.ui-bottom-left { bottom: 20px !important; left: 0; }
+		.ui-bottom-right { bottom: 0; right: 0; }
+		.icon-pulse {
+			display: flex; justify-content: center; align-items: center; width: 44px; height: 44px; border-radius: 50%; background: #000;
+			animation: blackGlow 2.5s infinite;
+		}
+		@keyframes blackGlow { 0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); } 70% { box-shadow: 0 0 10px 8px rgba(0, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); } }
+		
+		@keyframes roseGlow {
+			0% { text-shadow: 0 0 5px rgba(224, 177, 203, 0); }
+			50% { text-shadow: 0 0 20px rgba(224, 177, 203, 0.8), 0 0 10px rgba(183, 110, 121, 0.5); }
+			100% { text-shadow: 0 0 5px rgba(224, 177, 203, 0); }
+		}
+		.ui-pulse-rose { animation: roseGlow 2s infinite; color: #B76E79 !important; }
+		.ui-top-right { top: 0; right: 0; }
+		.logo-top-right {
+			position: fixed; top: 30px; right: 30px; z-index: 1000; cursor: pointer;
+			background: none; border: none; outline: none; padding: 0; margin: 0;
+		}
 		@media (max-width: 768px) {
 			.mina-ui { padding: 15px; font-size: 0.65rem; }
 			.ui-enlarged { font-size: 1.2rem !important; }
-			.ui-top-left-second { top: 45px !important; }
+			.ui-top-left-second { top: 40px !important; }
+			.ui-bottom-left { bottom: 10px !important; }
+			.logo-top-right { top: 15px; right: 15px; }
+			.logo-top-right svg { width: 30px !important; height: 40px !important; }
 		}
 	</style>
 
@@ -295,10 +316,6 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 					<footer class="js-footer globalFooter" style="display: none;">
 
 
-						<button class="js-footer-resn footerAction footerAction__resn" onclick="window.open('https://minalidya.com');">
-							<svg style="width: 40px; height: 50px;"><use xlink:href="#icon-minalidya-logo" /></svg>
-						</button>
-
 						<ul class="js-flower-controls footerAction footerAction__controls" data-state="flower" data-active="false">
 							
 						<!-- hidden if unless you are the creator -->
@@ -341,8 +358,14 @@ Bu çiçek sizin için {{sender}} ve Mina Lidya tarafından oluşturuldu. @minal
 
 		<a class="mina-ui ui-top-left ui-enlarged" id="back-to-intro-mina">MİNA LİDYA</a>
 		<a href="https://www.minalidya.com" target="_blank" class="mina-ui ui-top-left ui-top-left-second">MAĞAZA</a>
-		<a href="https://cicek.minalidya.com" target="_blank" class="mina-ui ui-bottom-left ui-enlarged">BİR ÇİÇEK GÖNDERİN</a>
+		<a href="https://cicek.minalidya.com" target="_blank" class="mina-ui ui-bottom-left ui-enlarged ui-pulse-rose">BİR ÇİÇEK GÖNDERİN</a>
+		<a href="https://wa.me/905421331641" target="_blank" class="mina-ui ui-bottom-right">
+			<div class="icon-pulse"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.301-.15-1.779-.879-2.053-.979s-.47-.15-.67.15c-.2.3-.77.979-.944 1.179s-.35.225-.651.075c-.301-.15-1.27-.469-2.42-1.494-.894-.798-1.498-1.783-1.674-2.083s-.019-.464.13-.614c.135-.133.301-.351.451-.525.151-.176.201-.3.301-.5.1-.2.05-.375-.025-.525s-.67-1.616-.918-2.215c-.242-.584-.487-.504-.67-.514l-.571-.011c-.2 0-.525.075-.798.375s-1.053 1.029-1.053 2.511 1.079 2.91 1.229 3.11c.15.2 2.126 3.245 5.148 4.549.719.31 1.279.496 1.716.634.721.229 1.376.196 1.894.12.578-.085 1.779-.726 2.029-1.426.25-.7.25-1.3.175-1.425s-.275-.225-.576-.375z"/></svg></div>
+		</a>
 
+		<a href="https://www.minalidya.com" target="_blank" class="logo-top-right">
+			<svg style="width: 40px; height: 50px;"><use xlink:href="#icon-minalidya-logo" /></svg>
+		</a>
 
 	</div>
 	<script data-main="js/loader" src="js/libs/require.js?v=1.0"></script>
