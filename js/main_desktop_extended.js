@@ -4984,18 +4984,20 @@ function Stalk(e, t) {
       },
       updateUrls: function () {
         var e = this.attributes,
-          t = e.sender_name + "+" + e.recipient_name;
-        var n = t.toLowerCase();
+          cleanSlug = e.sender_name + "+" + e.recipient_name,
+          fullData = cleanSlug;
+        e.randomizer !== null && (fullData = fullData + ":" + e.randomizer);
+        var n = fullData.toLowerCase();
         (this.set("seed", n),
-          (t = t.split(" ").join("_")),
+          (t = cleanSlug.split(" ").join("_")),
           (t = encodeURIComponent(t)),
           (t = t.split("%3A").join(":")),
           (t = t.split("%3a").join(":")),
           (t = t.split("%2B").join("+")),
           (t = t.split("%2b").join("+")),
           this.set("url_params", t),
-          this.set("share_url", e.url_params),
-          this.set("share_url", e.base_url + e.url_params));
+          this.set("full_data", fullData),
+          this.set("share_url", e.base_url + t));
       },
       initialize: function () {
         (this.setByUrlParams(),
@@ -5032,7 +5034,7 @@ function Stalk(e, t) {
           body: JSON.stringify({
             sender: sender,
             recipient: recipient,
-            data: dataStr
+            data: this.get("full_data") || dataStr
           })
         })
           .then(function(res) { 
