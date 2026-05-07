@@ -4984,7 +4984,9 @@ function Stalk(e, t) {
       },
       updateUrls: function () {
         var e = this.attributes,
-          cleanSlug = e.sender_name + "+" + e.recipient_name,
+          sName = this.restrictNameString("" + (e.sender_name || "")),
+          rName = this.restrictNameString("" + (e.recipient_name || "")),
+          cleanSlug = sName + "+" + rName,
           fullData = cleanSlug;
         e.randomizer !== null && (fullData = fullData + ":" + e.randomizer);
         var n = fullData.toLowerCase();
