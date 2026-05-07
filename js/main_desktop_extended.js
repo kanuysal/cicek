@@ -4988,18 +4988,21 @@ function Stalk(e, t) {
           rName = this.restrictNameString("" + (e.recipient_name || "")),
           cleanSlug = sName + "+" + rName,
           fullData = cleanSlug;
-        e.randomizer !== null && (fullData = fullData + ":" + e.randomizer);
+        if (e.randomizer) {
+          fullData = cleanSlug + ":" + e.randomizer;
+        }
         var n = fullData.toLowerCase();
-        (this.set("seed", n),
-          (t = cleanSlug.split(" ").join("_")),
-          (t = encodeURIComponent(t)),
-          (t = t.split("%3A").join(":")),
-          (t = t.split("%3a").join(":")),
-          (t = t.split("%2B").join("+")),
-          (t = t.split("%2b").join("+")),
-          this.set("url_params", t),
-          this.set("full_data", fullData),
-          this.set("share_url", e.base_url + t));
+        this.set("seed", n);
+        var t = cleanSlug.split(" ").join("_");
+        t = encodeURIComponent(t);
+        t = t.split("%3A").join(":");
+        t = t.split("%3a").join(":");
+        t = t.split("%2B").join("+");
+        t = t.split("%2b").join("+");
+        this.set("url_params", t);
+        this.set("full_data", fullData);
+        this.set("share_url", e.base_url + t);
+        console.log("Mina Lidya v1.0.4 - URL: " + t);
       },
       initialize: function () {
         (this.setByUrlParams(),
