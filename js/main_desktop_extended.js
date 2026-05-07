@@ -4985,7 +4985,6 @@ function Stalk(e, t) {
       updateUrls: function () {
         var e = this.attributes,
           t = e.sender_name + "+" + e.recipient_name;
-        e.randomizer !== null && (t = t + ":" + e.randomizer);
         var n = t.toLowerCase();
         (this.set("seed", n),
           (t = t.split(" ").join("_")),
