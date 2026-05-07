@@ -11,15 +11,18 @@ export default {
           return new Response("Missing fields", { status: 400 });
         }
 
-        // Generate base slug: sender&recipient (lowercase, clean)
-        let baseSlug = `${sender.trim().toLowerCase()}&${recipient.trim().toLowerCase()}`
-          .replace(/[^a-z0-9&]/g, "-") // basic cleaning
-          .replace(/-+/g, "-");
+        // Generate base slug: sender+recipient (preserve case, clean symbols)
+        // We replace characters that aren't letters, numbers or '+' with hyphens
+        let baseSlug = `${sender.trim()}+${recipient.trim()}`
+          .replace(/[^a-zA-Z0-9+]/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-+|-+$/g, ""); // remove leading/trailing hyphens
 
         let slug = baseSlug;
         let counter = 0;
 
-        // Collision handling
+        // Collision handling: if slug exists, add an incremental number (1, 2, 3...)
+        // We check against KV to see if this slug is already taken
         while (await env.KVC.get(slug)) {
           counter++;
           slug = `${baseSlug}${counter}`;
@@ -53,9 +56,8 @@ export default {
     const isApi = path.startsWith("/api/");
 
     if (!isFile && !isApi && path !== "/") {
-      // It's a clean URL like /serkan&mina
+      // It's a clean URL like /Serkan+Mina
       // We serve index.html (the frontend will parse the slug from pathname)
-      // In Cloudflare Pages or similar, we might just return the index.html directly
       return fetch(request); 
     }
 
